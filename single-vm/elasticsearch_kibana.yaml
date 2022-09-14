@@ -105,7 +105,7 @@ topology_template:
     docker_compose_service:
       type: tosca.nodes.indigo.DockerCompose.Elastic
       properties:
-        domain_name: dns_name
+        domain_name: { get_input: dns_name }
         project_name: elastic
         environment_variables:
           - ELASTIC_VERSION: "8.1.3"
@@ -164,7 +164,7 @@ topology_template:
     kibana_username:
       value: elastic
     elasticsearch_endpoint:
-      value: { concat: [ 'https://elastic.', get_attribute: [ docker_compose_service, domain_name ], '/es' ] }
+      value: { concat: [ 'https://', get_property: [ docker_compose_service, domain_name ], '/es' ] }
     node_ip:
       value: { get_attribute: [ kibana_es_server, public_address, 0 ] }
     node_creds:
