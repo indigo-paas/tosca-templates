@@ -39,14 +39,6 @@ topology_template:
       constraints:
          - valid_values: [ 18.04, 20.04, 7 ]
 
-    users:
-      type: list
-      description: list of users to create on the VM
-      entry_schema:
-        type: tosca.datatypes.indigo.User
-      default: []
-      required: false       
-
     ports:
       type: map
       required: false
@@ -98,8 +90,6 @@ topology_template:
 
     server:
       type: tosca.nodes.indigo.Compute
-      properties:
-        os_users: { get_input: users }
       capabilities:
         endpoint:
           properties:

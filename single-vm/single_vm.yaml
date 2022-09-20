@@ -34,7 +34,7 @@ topology_template:
       default: 20.04
       description: Operating System distribution version
       constraints:
-         - valid_values: [ 20.04, 18.04, 7 ]
+         - valid_values: [ 18.04, 20.04, 7 ]
 
     service_ports:
       type: map
@@ -43,16 +43,8 @@ topology_template:
       constraints:
         - min_length: 0
       entry_schema:
-        type: tosca.datatypes.network.PortSpec
+        type: tosca.datatypes.indigo.network.PortSpec
       description: Ports to open on the host
-
-    users:
-      type: list
-      description: list of users to create on the VM
-      entry_schema:
-        type: tosca.datatypes.indigo.User
-      default: []
-      required: false
 
 
   node_templates:
