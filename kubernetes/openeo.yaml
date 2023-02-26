@@ -73,6 +73,31 @@ topology_template:
       type: scalar-unit.size
       default: 8 GB
 
+    layer_catalog_url:
+      description: URL of the catalog file to import
+      type: string
+      default: https://raw.githubusercontent.com/Open-EO/openeo-geotrellis-kubernetes/master/docker/cscale_layercatalog.json
+
+    spark_driver_memory:
+      description: Amount of memory to use for the driver process
+      type: string
+      default: 2g
+
+    spark_driver_cores:
+      type: integer
+      description: Number of cores to use for the driver process
+      default: 1
+
+    spark_executor_memory:
+      type: string      
+      description: Amount of memory to use per executor process     
+      default: 2g
+    
+    spark_executor_cores:
+      type: integer
+      description: The number of cores to use on each executor
+      default: 1
+
     ports:
       description:
       type: map
@@ -186,6 +211,11 @@ topology_template:
       properties:
         dns_name: { get_input: frontend_dns_name }
         cert_manager_issuer: { concat: [ get_input: certificate_issuer, '-issuer' ] }
+        layercatalog_url: { get_input: layer_catalog_url } 
+        spark_driver_memory: { get_input: spark_driver_memory }
+        spark_driver_cpus: { get_input: spark_driver_cores }
+        spark_executor_memory: { get_input: spark_executor_memory }
+        spark_executor_cpus: { get_input: spark_executor_cores }
       requirements:
         - host: k8s_master_server
         - dependency: k8s_master
